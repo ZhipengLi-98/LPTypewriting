@@ -1,3 +1,7 @@
 /.vs
 /Debug
 /voc/Debug
+/Release
+/voc/Release
+/x64
+/voc/x64
