@@ -18,5 +18,40 @@
     <ClCompile Include="voc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CallbackSample.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ExampleConnection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="motion.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="display.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="displaymain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="typing.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ExampleConnection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="motion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="display.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="typing.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="voc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

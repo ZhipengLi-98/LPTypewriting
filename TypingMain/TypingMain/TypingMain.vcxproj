@@ -124,7 +124,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CallbackSample.cpp" />
+    <ClCompile Include="display.cpp" />
+    <ClCompile Include="displaymain.cpp" />
+    <ClCompile Include="ExampleConnection.cpp" />
+    <ClCompile Include="motion.cpp" />
+    <ClCompile Include="typing.cpp" />
     <ClCompile Include="voc.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="display.h" />
+    <ClInclude Include="ExampleConnection.h" />
+    <ClInclude Include="motion.h" />
+    <ClInclude Include="typing.h" />
+    <ClInclude Include="voc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
