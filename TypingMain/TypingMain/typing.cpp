@@ -5,24 +5,40 @@ using namespace cv;
 
 Typing::Typing()
 {
+	counterEmit = counterSlot = 0;
 	cout << "voc init start" << endl;
 	voc.init();
 	cout << "voc init done" << endl;	
 	motion.setPointer(this);
 	wheelL = -1;
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' '; 
-	picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
-	//Mat pic(720, 1080, CV_8UC3, Scalar(254, 254, 254));
+	//picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
 	renewWheel();
+	initshow();
 }
 
+void Typing::initshow()
+{
+	thread show(&Typing::runshow, this);
+	show.detach();
+}
 
+void Typing::runshow()
+{
+	while (1)
+	{
+		imshow("drawWheel", picture);	
+		waitKey(1);
+	}
+}
 
 void Typing::renewWheel()
 {
+	picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
 	drawWheel(wheelL, wheelR, picture);
+	//counterEmit++;
 	//imshow("drawWheel", picture);	
-	//waitKey(-1);
+	//waitKey(1);
 }
 
 void Typing::getVoc()

@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <queue>
+#include <thread>
 #include "LeapC.h"
 #include "motion.h"
 #include "voc.h"
@@ -24,6 +25,8 @@ public:
 	char wheelR[6];
 	int wheelL;
 	
+	int counterEmit;
+	int counterSlot;
 	cv::Mat picture;
 	std::vector<std::pair<float, char>> vocRec;
 	char inputChar;
@@ -31,6 +34,8 @@ public:
 	double angleLeft;
 	double angleRight;
 
+	void initshow();
+	void runshow();
 	void renewWheel();
 	void getVoc();
 	void getLeft(double angle);
