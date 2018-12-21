@@ -3,7 +3,7 @@
 char alphabet[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 char temp[6];
 
-void drawWheel(int index, char* characters, cv::Mat& picture) {
+void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 	int flag = 1;
 	if (index == -1)
 	{
@@ -57,7 +57,13 @@ void drawWheel(int index, char* characters, cv::Mat& picture) {
 	int r_coverage2 = ((r1 + r2) >> 1) - 10;
 
 	for (int i = 0; i < 6; i++) {
-		double c_angle = angle * i;
+		// double c_angle = angle * i;
+		int t = 0;
+		for (int j = 0; j < i; j++) {
+			t += angles[j];
+		}
+		double c_angle = (double)t /360 * 2 * PI;
+		std::cout << c_angle << std::endl;
 		Point start = Point(center2.x + r1 * sin(c_angle), center2.y + r1 * cos(c_angle));
 		Point end = Point(center2.x + r2 * sin(c_angle), center2.y + r2 * cos(c_angle));
 		line(picture, start, end, Scalar(20, 20, 20), 2, LINE_8);

@@ -35,7 +35,8 @@ void Typing::runshow()
 void Typing::renewWheel()
 {
 	// picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
-	drawWheel(wheelL, wheelR, picture);
+	int test[6] = {30, 40, 50, 70, 80, 90};
+	drawWheel(wheelL, wheelR, picture, test);
 	//counterEmit++;
 	//imshow("drawWheel", picture);	
 	//waitKey(1);
