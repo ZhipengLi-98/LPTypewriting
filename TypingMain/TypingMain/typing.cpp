@@ -12,7 +12,7 @@ Typing::Typing()
 	motion.setPointer(this);
 	wheelL = -1;
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' '; 
-	//picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
+	picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
 	renewWheel();
 	initshow();
 }
@@ -34,7 +34,7 @@ void Typing::runshow()
 
 void Typing::renewWheel()
 {
-	picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
+	// picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
 	drawWheel(wheelL, wheelR, picture);
 	//counterEmit++;
 	//imshow("drawWheel", picture);	

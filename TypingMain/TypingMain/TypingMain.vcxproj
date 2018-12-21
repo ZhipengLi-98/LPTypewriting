@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Software\LeapSDK\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Software\LeapSDK\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Leap_Motion_Developer_Kit_4.0.0+52173\Leap_Motion_Developer_Kit_4.0.0+52173\LeapSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Leap_Motion_Developer_Kit_4.0.0+52173\Leap_Motion_Developer_Kit_4.0.0+52173\LeapSDK\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -87,10 +87,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Software\LeapSDK\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Leap_Motion_Developer_Kit_4.0.0+52173\Leap_Motion_Developer_Kit_4.0.0+52173\LeapSDK\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Software\LeapSDK\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Leap_Motion_Developer_Kit_4.0.0+52173\Leap_Motion_Developer_Kit_4.0.0+52173\LeapSDK\lib\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>LeapC.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -1,6 +1,7 @@
 #include "display.h"
 
 char alphabet[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+char temp[6];
 
 void drawWheel(int index, char* characters, cv::Mat& picture) {
 	int flag = 1;
@@ -30,6 +31,9 @@ void drawWheel(int index, char* characters, cv::Mat& picture) {
 		line(picture, start, end, Scalar(20, 20, 20), 2, LINE_8);
 	}
 	Size axes = Size(r2, r2);
+	for (int i = 0; i < 5; i++) {
+		ellipse(picture, center1, axes, 0, i * 60 - 30, i * 60 + 30, Scalar(255, 255, 255), -1);
+	}
 	if (flag) 
 	{
 		ellipse(picture, center1, axes, 0, index * 60 - 30, index * 60 + 30, Scalar(100, 100, 100), -1);
@@ -64,6 +68,17 @@ void drawWheel(int index, char* characters, cv::Mat& picture) {
 
 	cv::String string = ((const char*)characters);
 	cv::String(sizeof(char), characters[0]);
+
+	putText(picture, cv::String(sizeof(char), temp[0]), Point(center2.x - 10 + r_coverage2 * sin(angle / 2), center2.y - r_coverage2 * cos(angle / 2)), 1.5, 1, Scalar::all(255));
+	putText(picture, cv::String(sizeof(char), temp[1]), Point(center2.x - 10 + r_coverage2 * sin(angle * 3 / 2), center2.y - r_coverage2 * cos(angle * 3 / 2)), 1.5, 1, Scalar::all(255));
+	putText(picture, cv::String(sizeof(char), temp[2]), Point(center2.x - 10 + r_coverage2 * sin(angle * 5 / 2), center2.y - r_coverage2 * cos(angle * 5 / 2)), 1.5, 1, Scalar::all(255));
+	putText(picture, cv::String(sizeof(char), temp[3]), Point(center2.x - 10 + r_coverage2 * sin(angle * 7 / 2), center2.y - r_coverage2 * cos(angle * 7 / 2)), 1.5, 1, Scalar::all(255));
+	putText(picture, cv::String(sizeof(char), temp[4]), Point(center2.x - 10 + r_coverage2 * sin(angle * 9 / 2), center2.y - r_coverage2 * cos(angle * 9 / 2)), 1.5, 1, Scalar::all(255));
+	putText(picture, cv::String(sizeof(char), temp[5]), Point(center2.x - 10 + r_coverage2 * sin(angle * 11 / 2), center2.y - r_coverage2 * cos(angle * 11 / 2)), 1.5, 1, Scalar::all(255));
+
+	for (int i = 0; i < 6; i++) {
+		temp[i] = characters[i];
+	}
 
 	putText(picture, cv::String(sizeof(char), characters[0]), Point(center2.x - 10 + r_coverage2 * sin(angle / 2), center2.y - r_coverage2 * cos(angle / 2)), 1.5, 1, Scalar::all(0));
 	putText(picture, cv::String(sizeof(char), characters[1]), Point(center2.x - 10 + r_coverage2 * sin(angle * 3 / 2), center2.y - r_coverage2 * cos(angle * 3 / 2)), 1.5, 1, Scalar::all(0));
