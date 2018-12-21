@@ -31,7 +31,7 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 		line(picture, start, end, Scalar(20, 20, 20), 2, LINE_8);
 	}
 	Size axes = Size(r2, r2);
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 6; i++) {
 		ellipse(picture, center1, axes, 0, i * 60 - 30, i * 60 + 30, Scalar(255, 255, 255), -1);
 	}
 	if (flag) 
@@ -98,6 +98,19 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 
 	// imshow("leftWheel", picture);
 	// waitKey(-1);
+}
+
+void drawText(char* text, int len, cv::Mat& picture) {
+	int rows = 0;
+	int width = 0;
+	for (int i = 0; i < len; i++) {
+		width++;
+		if (i > 19) {
+			width -= 20;
+			rows++;
+		}
+		putText(picture, cv::String(sizeof(char), text[i]), Point(400 + width * 10, 100 + rows * 10), 1.5, 1, Scalar::all(0));
+	}
 }
 
 // useless

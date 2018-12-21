@@ -15,6 +15,8 @@ using namespace std;
 
 void drawWheel(int index, char* characters, cv::Mat& picture, int* angles);
 
+void drawText(char* text, int len, cv::Mat& picture);
+
 // useless
 void leftWheel(int index);
 
