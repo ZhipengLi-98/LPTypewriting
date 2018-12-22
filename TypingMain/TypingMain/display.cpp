@@ -12,7 +12,7 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 	}
 	index -= 1;
 	index %= 6;
-	cout << "drawWheel" << endl;
+	//cout << "drawWheel" << endl;
 	// cout << "leftWheel " << index << endl;
 	// Mat picture(720, 720, CV_8UC3, Scalar(254, 254, 254));
 
@@ -63,7 +63,7 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 			t += angles[j];
 		}
 		double c_angle = (double)t /360 * 2 * PI;
-		std::cout << c_angle << std::endl;
+		//std::cout << c_angle << std::endl;
 		Point start = Point(center2.x + r1 * sin(c_angle), center2.y + r1 * cos(c_angle));
 		Point end = Point(center2.x + r2 * sin(c_angle), center2.y + r2 * cos(c_angle));
 		line(picture, start, end, Scalar(20, 20, 20), 2, LINE_8);

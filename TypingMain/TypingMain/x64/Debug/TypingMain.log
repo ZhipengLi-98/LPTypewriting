@@ -1,41 +1,6 @@
-﻿  display.cpp
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(29): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(42): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(43): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(44): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(45): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(46): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(47): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(67): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(68): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(78): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(79): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(80): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(81): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(82): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(83): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(89): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(90): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(91): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(92): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(93): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(94): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(112): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(133): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(134): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(140): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(141): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(142): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(143): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(144): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(145): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(166): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(167): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(176): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(177): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(178): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(179): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(180): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\display.cpp(181): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-  TypingMain.vcxproj -> C:\Users\19081\Documents\Visual Studio 2017\Projects\LP-Typewriting\LPTypeWriting\TypingMain\x64\Debug\TypingMain.exe
+﻿  typing.cpp
+d:\virtualbox\lptypewriting\typingmain\typingmain\voc.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(73): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(82): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(83): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  TypingMain.vcxproj -> D:\Virtualbox\LPTypewriting\TypingMain\x64\Debug\TypingMain.exe

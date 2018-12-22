@@ -24,6 +24,11 @@ public:
 
 	char wheelR[6];
 	int wheelL;
+	double rate[6];
+	int angleR[6];
+	string text;
+	string word;
+	int len;
 	
 	int counterEmit;
 	int counterSlot;
@@ -40,6 +45,9 @@ public:
 	void getVoc();
 	void getLeft(double angle);
 	void getRight(double angle);
+	void getDel();
+	void getSps();
+	void getEnt();
 
 	Typing();
 	~Typing();

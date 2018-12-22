@@ -3,7 +3,6 @@
 #include <cstdio>
 #include <iostream>
 #include <cmath>
-//#include "typing.h"
 
 class Vector
 {
@@ -15,6 +14,7 @@ public:
 	void maxUpdate(Vector);
 	float distanceSquare(Vector);
 	float plainDistanceSquare(Vector);
+	float verticalDistance(Vector);
 	float angle(Vector);
 	void normalize();
 	void print();
@@ -41,16 +41,26 @@ class Motion
 	const float MINVAL = -1000.0f;
 	const float MAXVAL = 1000.0f;
 	const float RADIUS = 100.0f;
+	const float RADIUS_Z = 30.0f;
 	Vector baseCoor;
+	int leftPinchHold = 0;
+	int rightPinchHold = 0;
+	int isPalmFlipped = 0;//ÊÖÕÆÊÇ·ñ·­×ª
+	int isLeftEnter = 0;
+	int isRightEnter = 0;
+	Vector flippedCenterLeft;
+	Vector flippedCenterRight;
 
 	Typing * pointerTyping;
 
 public:
 	Motion();
 	~Motion();
-	void insertNewFrame(float, float, float, float, float, float);
+	void insertNewFrame(float, float, float, float, float, float, Vector, Vector, Vector, Vector);
 	void checkNewCenter();//check if there is a new center
 	void checkMovement();
+	void checkPinch(Vector, Vector);
+	void checkPalmDirection(Vector, Vector, Vector, Vector);
 	
 	void setPointer(Typing * pointer);
 

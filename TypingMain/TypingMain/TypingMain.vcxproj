@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{87C57F33-0F86-49FB-8E88-BE7FAC5C1E88}</ProjectGuid>
     <RootNamespace>TypingMain</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -87,10 +87,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Leap_Motion_Developer_Kit_4.0.0+52173\Leap_Motion_Developer_Kit_4.0.0+52173\LeapSDK\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Software\LeapSDK\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Leap_Motion_Developer_Kit_4.0.0+52173\Leap_Motion_Developer_Kit_4.0.0+52173\LeapSDK\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Software\LeapSDK\lib\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>LeapC.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -117,10 +117,13 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>C:\Software\LeapSDK\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Software\LeapSDK\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>LeapC.dll;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
