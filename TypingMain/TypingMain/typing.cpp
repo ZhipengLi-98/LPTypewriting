@@ -42,7 +42,7 @@ void Typing::renewWheel()
 	// int test[6] = {30, 40, 50, 70, 80, 90};
 	// char testc[6] = { 'a','b','c','d','e','f' };
 	//char testText[] = { "Hello World" };
-	drawWheel(wheelL, wheelR, picture, angleR);
+	drawWheel(1, wheelR, picture, angleR);
 	// drawWheel(wheelL, testc, picture, test);
 	drawText((char*)text.data(), len, picture);
 	//counterEmit++;
