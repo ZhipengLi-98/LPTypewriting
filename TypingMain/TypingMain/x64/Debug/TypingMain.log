@@ -1,6 +1,6 @@
 ﻿  typing.cpp
-d:\virtualbox\lptypewriting\typingmain\typingmain\voc.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(73): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(82): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(83): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-  TypingMain.vcxproj -> D:\Virtualbox\LPTypewriting\TypingMain\x64\Debug\TypingMain.exe
+c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\voc.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\typing.cpp(75): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\typing.cpp(84): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+c:\users\19081\documents\visual studio 2017\projects\lp-typewriting\lptypewriting\typingmain\typingmain\typing.cpp(85): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  TypingMain.vcxproj -> C:\Users\19081\Documents\Visual Studio 2017\Projects\LP-Typewriting\LPTypeWriting\TypingMain\x64\Debug\TypingMain.exe

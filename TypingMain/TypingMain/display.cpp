@@ -2,6 +2,8 @@
 
 char alphabet[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 char temp[6];
+int angleBuffer[6];
+std::vector<char> charBuffer;
 
 void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 	int flag = 1;
@@ -12,7 +14,7 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 	}
 	index -= 1;
 	index %= 6;
-	//cout << "drawWheel" << endl;
+	// cout << "drawWheel" << endl;
 	// cout << "leftWheel " << index << endl;
 	// Mat picture(720, 720, CV_8UC3, Scalar(254, 254, 254));
 
@@ -57,41 +59,76 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 	int r_coverage2 = ((r1 + r2) >> 1) - 10;
 
 	for (int i = 0; i < 6; i++) {
-		// double c_angle = angle * i;
 		int t = 0;
 		for (int j = 0; j < i; j++) {
-			t += angles[j];
+			t += angleBuffer[j];
 		}
-		double c_angle = (double)t /360 * 2 * PI;
-		//std::cout << c_angle << std::endl;
-		Point start = Point(center2.x + r1 * sin(c_angle), center2.y + r1 * cos(c_angle));
-		Point end = Point(center2.x + r2 * sin(c_angle), center2.y + r2 * cos(c_angle));
-		line(picture, start, end, Scalar(20, 20, 20), 2, LINE_8);
+		double c_angle = (double)t / 360 * 2 * PI;
+		Point start = Point(center2.x + r1 * sin(c_angle), center2.y - r1 * cos(c_angle));
+		Point end = Point(center2.x + r2 * sin(c_angle), center2.y - r2 * cos(c_angle));
+		line(picture, start, end, Scalar::all(255), 2, LINE_8);
 	}
-
-	// Size axes = Size(r2, r2);
-	// ellipse(picture, center, axes, 0, index * 60 - 30, index * 60 + 30, Scalar(100, 100, 100), -1);
+	circle(picture, center2, r1, Scalar(20, 20, 20), 3);
+	circle(picture, center2, r2, Scalar(20, 20, 20), 3);
 
 	cv::String string = ((const char*)characters);
 	cv::String(sizeof(char), characters[0]);
 
+	for (int i = 0; i < 6; i++) {
+		int t = 0;
+		for (int j = 0; j < i; j++) {
+			t += angleBuffer[j];
+		}
+		t += angleBuffer[i] / 2;
+		double tempAngle = (double)t / 360 * 2 * PI;
+		putText(picture, cv::String(sizeof(char), temp[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1, Scalar::all(255));
+	}
+
+	/*
 	putText(picture, cv::String(sizeof(char), temp[0]), Point(center2.x - 10 + r_coverage2 * sin(angle / 2), center2.y - r_coverage2 * cos(angle / 2)), 1.5, 1, Scalar::all(255));
 	putText(picture, cv::String(sizeof(char), temp[1]), Point(center2.x - 10 + r_coverage2 * sin(angle * 3 / 2), center2.y - r_coverage2 * cos(angle * 3 / 2)), 1.5, 1, Scalar::all(255));
 	putText(picture, cv::String(sizeof(char), temp[2]), Point(center2.x - 10 + r_coverage2 * sin(angle * 5 / 2), center2.y - r_coverage2 * cos(angle * 5 / 2)), 1.5, 1, Scalar::all(255));
 	putText(picture, cv::String(sizeof(char), temp[3]), Point(center2.x - 10 + r_coverage2 * sin(angle * 7 / 2), center2.y - r_coverage2 * cos(angle * 7 / 2)), 1.5, 1, Scalar::all(255));
 	putText(picture, cv::String(sizeof(char), temp[4]), Point(center2.x - 10 + r_coverage2 * sin(angle * 9 / 2), center2.y - r_coverage2 * cos(angle * 9 / 2)), 1.5, 1, Scalar::all(255));
 	putText(picture, cv::String(sizeof(char), temp[5]), Point(center2.x - 10 + r_coverage2 * sin(angle * 11 / 2), center2.y - r_coverage2 * cos(angle * 11 / 2)), 1.5, 1, Scalar::all(255));
+	*/
+
+	for (int i = 0; i < 6; i++) {
+		// double c_angle = angle * i;
+		angleBuffer[i] = angles[i];
+		int t = 0;
+		for (int j = 0; j < i; j++) {
+			t += angles[j];
+		}
+		double c_angle = (double)t / 360 * 2 * PI;
+		//std::cout << c_angle << std::endl;
+		Point start = Point(center2.x + r1 * sin(c_angle), center2.y - r1 * cos(c_angle));
+		Point end = Point(center2.x + r2 * sin(c_angle), center2.y - r2 * cos(c_angle));
+		line(picture, start, end, Scalar::all(0), 2, LINE_8);
+	}
+
+	// Size axes = Size(r2, r2);
+	// ellipse(picture, center, axes, 0, index * 60 - 30, index * 60 + 30, Scalar(100, 100, 100), -1);
 
 	for (int i = 0; i < 6; i++) {
 		temp[i] = characters[i];
+		double t = 0;
+		for (int j = 0; j < i; j++) {
+			t += angleBuffer[j];
+		}
+		t += angleBuffer[i] / 2;
+		double tempAngle = (double)t / 360 * 2 * PI;
+		putText(picture, cv::String(sizeof(char), characters[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1, Scalar::all(0));
 	}
 
+	/*
 	putText(picture, cv::String(sizeof(char), characters[0]), Point(center2.x - 10 + r_coverage2 * sin(angle / 2), center2.y - r_coverage2 * cos(angle / 2)), 1.5, 1, Scalar::all(0));
 	putText(picture, cv::String(sizeof(char), characters[1]), Point(center2.x - 10 + r_coverage2 * sin(angle * 3 / 2), center2.y - r_coverage2 * cos(angle * 3 / 2)), 1.5, 1, Scalar::all(0));
 	putText(picture, cv::String(sizeof(char), characters[2]), Point(center2.x - 10 + r_coverage2 * sin(angle * 5 / 2), center2.y - r_coverage2 * cos(angle * 5 / 2)), 1.5, 1, Scalar::all(0));
 	putText(picture, cv::String(sizeof(char), characters[3]), Point(center2.x - 10 + r_coverage2 * sin(angle * 7 / 2), center2.y - r_coverage2 * cos(angle * 7 / 2)), 1.5, 1, Scalar::all(0));
 	putText(picture, cv::String(sizeof(char), characters[4]), Point(center2.x - 10 + r_coverage2 * sin(angle * 9 / 2), center2.y - r_coverage2 * cos(angle * 9 / 2)), 1.5, 1, Scalar::all(0));
 	putText(picture, cv::String(sizeof(char), characters[5]), Point(center2.x - 10 + r_coverage2 * sin(angle * 11 / 2), center2.y - r_coverage2 * cos(angle * 11 / 2)), 1.5, 1, Scalar::all(0));
+	*/
 
 	// imshow("rightWheel", picture);
 	// waitKey(-1);
@@ -103,8 +140,21 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 void drawText(char* text, int len, cv::Mat& picture) {
 	int rows = 0;
 	int width = 0;
+	for (int i = 0; i < charBuffer.size(); i++) {
+		width++;
+		if (i > 19) {
+			width -= 20;
+			rows++;
+		}
+		putText(picture, cv::String(sizeof(char), charBuffer[i]), Point(400 + width * 10, 100 + rows * 10), 1.5, 1, Scalar::all(255));
+	}
+	
+	rows = 0;
+	width = 0;
+	charBuffer.clear();
 	for (int i = 0; i < len; i++) {
 		width++;
+		charBuffer.push_back(text[i]);
 		if (i > 19) {
 			width -= 20;
 			rows++;
