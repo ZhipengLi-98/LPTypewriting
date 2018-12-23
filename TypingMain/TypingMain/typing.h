@@ -24,6 +24,7 @@ public:
 
 	char wheelR[6];
 	int wheelL;
+	int center;
 	double rate[6];
 	int angleR[6];
 	string text;

@@ -42,7 +42,7 @@ void Typing::renewWheel()
 	// int test[6] = {30, 40, 50, 70, 80, 90};
 	// char testc[6] = { 'a','b','c','d','e','f' };
 	//char testText[] = { "Hello World" };
-	drawWheel(1, wheelR, picture, angleR);
+	drawWheel(center + 1, wheelR, picture, angleR);
 	// drawWheel(wheelL, testc, picture, test);
 	drawText((char*)text.data(), len, picture);
 	//counterEmit++;
@@ -59,7 +59,7 @@ void Typing::getVoc()
 	vocRec = voc.getnextn(inputChar, 6);
 	//for (int i = 0; i < vocRec.size(); i++)
 	double sum = 0;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		pair<float, char> p;
 		p = vocRec[i];
@@ -70,7 +70,7 @@ void Typing::getVoc()
 	}
 	int tmp = 0;
 	int init = 35;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		angleR[i] = init + ((rate[i] / sum) * (360 - 6 * init));
 		tmp += angleR[i];
@@ -81,7 +81,7 @@ void Typing::getVoc()
 //todo : round
 void Typing::getLeft(double angle) 
 {
-	int center = (floor((angle / 360) * 26));
+	center = (floor((angle / 360) * 26));
 	wheelL = floor(angle / 60);
 	cout << endl;
 	cout << "choose left center : " << (char)(97 + center) <<  endl;
@@ -118,12 +118,14 @@ void Typing::getRight(double angle)
 	if (inputChar == ' ')
 	{
 		//useless
+		/*
 		cout << "back" << endl;
 		inputChar = '.';
 		getVoc();
 		wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' '; 
 		wheelL = -1;
 		renewWheel();
+		*/
 	}
 	else
 	{
@@ -148,6 +150,8 @@ void Typing::getDel()
 			word.pop_back();
 		}
 	}
+	inputChar = '.';
+	getVoc();
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
 	wheelL = -1;
@@ -159,10 +163,10 @@ void Typing::getSps()
 	cout << endl;
 	cout << "space" << endl;
 	char inputChar = '.';
-	getVoc();
 	word = "";
 	text += " ";
 	len++;
+	getVoc();
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
 	wheelL = -1;
@@ -173,11 +177,11 @@ void Typing::getEnt()
 {
 	cout << endl;
 	cout << "enter" << endl;
-	char inputChar = '.';
-	getVoc();
 	word = "";
 	text = "";
 	len = 0;
+	char inputChar = '.';
+	getVoc();
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
 	wheelL = -1;
