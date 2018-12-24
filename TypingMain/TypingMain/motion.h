@@ -42,7 +42,7 @@ class Motion
 	const float MAXVAL = 1000.0f;
 	const float RADIUS = 100.0f;
 	const float RADIUS_Z = 30.0f;
-	const float RADIUS_SPACE = 50.0f;
+	const float RADIUS_SPACE = 100.0f;
 	const int TIME_INTERVAL = 30;
 	Vector baseCoor;
 	int leftPinchHold = 0;

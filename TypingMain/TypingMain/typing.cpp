@@ -16,6 +16,7 @@ Typing::Typing()
 	wheelL = -1;
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' '; 
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
+	isword[0] = isword[1] = isword[2] = isword[3] = isword[4] = isword[5] = 0;
 	picture = Mat(720, 1080, CV_8UC3, Scalar(254, 254, 254));
 	renewWheel();
 	initshow();
@@ -42,7 +43,19 @@ void Typing::renewWheel()
 	// int test[6] = {30, 40, 50, 70, 80, 90};
 	// char testc[6] = { 'a','b','c','d','e','f' };
 	//char testText[] = { "Hello World" };
-	drawWheel(center + 1, wheelR, picture, angleR);
+	char w[6];
+	w[0] = wheelR[0][0]; w[1] = wheelR[1][0];
+	w[2] = wheelR[2][0]; w[3] = wheelR[3][0];
+	w[4] = wheelR[4][0]; w[5] = wheelR[5][0];
+	// drawWheel(center + 1, w, picture, angleR);
+	if (wheelL == -1)
+	{
+		drawWheel(-1, wheelR, picture, angleR);
+	}
+	else
+	{
+		drawWheel(center + 1, wheelR, picture, angleR);
+	}
 	// drawWheel(wheelL, testc, picture, test);
 	drawText((char*)text.data(), len, picture);
 	//counterEmit++;
@@ -83,7 +96,9 @@ void Typing::getVoc()
 	int wod = rec.words.size();
 	int fir = rec.firstAlphas.size();
 
+	
 	cout << alp << " " << wod << " " << fir << endl;
+	/*
 	for (auto e : rec.alphas)
 	{
 		cout << e.first << " " << e.second << endl;
@@ -96,16 +111,17 @@ void Typing::getVoc()
 	{
 		cout << e.first << " " << e.second << endl;
 	}
-
+	*/
 
 	if (alp > 0)
 	{
-		for (auto e : rec.alphas)
+		for (auto p : rec.alphas)
 		{
-			pair<float, string> p;
+			//pair<float, string> p;
 			cout << p.second << " : " << p.first << endl;
-			wheelR[i] = p.second[0];
+			wheelR[i] = p.second;
 			rate[i] = p.first;
+			isword[i] = 0;
 			sum += p.first;
 			i = getNxt(i);
 		}
@@ -122,40 +138,44 @@ void Typing::getVoc()
 		}
 		angleR[i] = 360 - (45 * (6 - alp)) - tmp;
 		i = getNxt(i);
-		for (auto e : rec.words)
+		for (auto p : rec.words)
 		{
-			pair<float, string> p;
+			//pair<float, string> p;
 			cout << p.second << " : " << p.first << endl;
-			wheelR[i] = p.second[0];
+			wheelR[i] = p.second;
 			angleR[i] = 45;
+			isword[i] = 1;
 			i = getNxt(i);
 		}
-		for (auto e : rec.alphas)
+		for (auto p : rec.firstAlphas)
 		{
-			pair<float, string> p;
+			//pair<float, string> p;
 			cout << p.second << " : " << p.first << endl;
-			wheelR[i] = p.second[0];
+			wheelR[i] = p.second;
 			angleR[i] = 45;
+			isword[i] = 0;
 			i = getNxt(i);
 		}
 	}
 	else
 	{
 		i = 0;
-		for (auto e : rec.words)
+		for (auto p : rec.words)
 		{
-			pair<float, string> p;
+			//pair<float, string> p;
 			cout << p.second << " : " << p.first << endl;
-			wheelR[i] = p.second[0];
+			wheelR[i] = p.second;
 			angleR[i] = 60;
+			isword[i] = 1;
 			i = getNxt(i);
 		}
-		for (auto e : rec.alphas)
+		for (auto p : rec.firstAlphas)
 		{
-			pair<float, string> p;
+			//pair<float, string> p;
 			cout << p.second << " : " << p.first << endl;
-			wheelR[i] = p.second[0];
+			wheelR[i] = p.second;
 			angleR[i] = 60;
+			isword[i] = 0;
 			i = getNxt(i);
 		}
 	}
@@ -217,18 +237,19 @@ void Typing::getRight(double angle)
 		if ((angle >= ang) && (angle < ang + angleR[i])) break;
 		ang += angleR[i];
 	}
+	/*
 	inputChar = wheelR[i];
 	if (inputChar == ' ')
 	{
 		//useless
-		/*
+		
 		cout << "back" << endl;
 		inputChar = '.';
 		getVoc();
 		wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' '; 
 		wheelL = -1;
 		renewWheel();
-		*/
+		
 	}
 	else
 	{
@@ -237,6 +258,28 @@ void Typing::getRight(double angle)
 		text += inputChar;
 		len++;
 		getVoc();
+		renewWheel();
+	}*/
+	if (!isword[i])
+	{
+		inputChar = wheelR[i][0];
+		cout << "input : " << inputChar << endl;
+		word += inputChar;
+		text += inputChar;
+		len++;
+		getVoc();
+		wheelL = -1;
+		renewWheel();
+	}
+	else
+	{
+		cout << "input : " << wheelR[i] << endl;
+		text = text.substr(0, text.length() - word.length());
+		word = wheelR[i];
+		text = text + word;
+		len = text.length();
+		getVoc();
+		wheelL = -1;
 		renewWheel();
 	}
 }
@@ -254,9 +297,11 @@ void Typing::getDel()
 		}
 	}
 	inputChar = '.';
-	getVoc();
+	word = "";
+	//getVoc();
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
+	isword[0] = isword[1] = isword[2] = isword[3] = isword[4] = isword[5] = 0;
 	wheelL = -1;
 	renewWheel();
 }
@@ -269,9 +314,10 @@ void Typing::getSps()
 	word = "";
 	text += " ";
 	len++;
-	getVoc();
+	//getVoc();
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
+	isword[0] = isword[1] = isword[2] = isword[3] = isword[4] = isword[5] = 0;
 	wheelL = -1;
 	renewWheel();
 }
@@ -284,9 +330,10 @@ void Typing::getEnt()
 	text = "";
 	len = 0;
 	char inputChar = '.';
-	getVoc();
+	//getVoc();
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
+	isword[0] = isword[1] = isword[2] = isword[3] = isword[4] = isword[5] = 0;
 	wheelL = -1;
 	renewWheel();
 }
