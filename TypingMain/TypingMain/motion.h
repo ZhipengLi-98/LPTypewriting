@@ -42,12 +42,15 @@ class Motion
 	const float MAXVAL = 1000.0f;
 	const float RADIUS = 100.0f;
 	const float RADIUS_Z = 30.0f;
+	const float RADIUS_SPACE = 50.0f;
+	const int TIME_INTERVAL = 30;
 	Vector baseCoor;
 	int leftPinchHold = 0;
 	int rightPinchHold = 0;
 	int isPalmFlipped = 0;//ÊÖÕÆÊÇ·ñ·­×ª
 	int isLeftEnter = 0;
 	int isRightEnter = 0;
+	int counter = 0;
 	Vector flippedCenterLeft;
 	Vector flippedCenterRight;
 
@@ -61,7 +64,9 @@ public:
 	void checkMovement();
 	void checkPinch(Vector, Vector);
 	void checkPalmDirection(Vector, Vector, Vector, Vector);
-	
+	void resetCounter();
+	void resetFlipedCounter();
+
 	void setPointer(Typing * pointer);
 
 private:
