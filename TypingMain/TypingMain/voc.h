@@ -9,6 +9,13 @@
 using json = nlohmann::json;
 //using namespace std;
 
+#define DEBUG 1
+struct AssociWords {
+	std::vector<std::pair<float, std::string> > alphas;
+	std::vector<std::pair<float, std::string> > words;
+	std::vector<std::pair<float, std::string> > firstAlphas;
+};
+
 class Voc {
 private:
 	json data;

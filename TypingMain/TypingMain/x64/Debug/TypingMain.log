@@ -13,6 +13,7 @@ d:\virtualbox\lptypewriting\typingmain\typingmain\voc.h : warning C4819: 该文�
 d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(75): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(84): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(85): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  voc.cpp
+d:\virtualbox\lptypewriting\typingmain\typingmain\voc.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   正在生成代码...
-  LINK : 没有找到 D:\Virtualbox\LPTypewriting\TypingMain\x64\Debug\TypingMain.exe 或上一个增量链接没有生成它；正在执行完全链接
   TypingMain.vcxproj -> D:\Virtualbox\LPTypewriting\TypingMain\x64\Debug\TypingMain.exe
