@@ -40,6 +40,8 @@ public:
 	double angleLeft;
 	double angleRight;
 
+	int getNxt(int);
+
 	void initshow();
 	void runshow();
 	void renewWheel();

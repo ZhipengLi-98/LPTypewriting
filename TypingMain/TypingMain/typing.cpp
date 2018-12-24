@@ -50,15 +50,105 @@ void Typing::renewWheel()
 	//waitKey(1);
 }
 
+int Typing::getNxt(int i)
+{
+	if (i == 0)
+		return 1;
+	if (i == 1)
+		return 5;
+	if (i == 5)
+		return 2;
+	if (i == 2)
+		return 3;
+	if (i == 3)
+		return 4;
+	return 0;
+}
+
 //todo : change angle
 void Typing::getVoc()
 {
 	//inputChar = 'a';
 	cout << "Voc : " << word << endl;
 	
-	vocRec = voc.getnextn(inputChar, 6);
+	//vocRec = voc.getnextn(inputChar, 6);
 	//for (int i = 0; i < vocRec.size(); i++)
+
+	AssociWords rec;
+	rec = voc.getnexts(word, 4, 2);
+
 	double sum = 0;
+	int i = 0;
+	int alp = rec.alphas.size();
+	int wod = rec.words.size();
+	int fir = rec.firstAlphas.size();
+
+	cout << alp << " " << wod << " " << fir << endl;
+
+
+	if (alp > 0)
+	{
+		for (auto e : rec.alphas)
+		{
+			pair<float, string> p;
+			cout << p.second << " : " << p.first << endl;
+			wheelR[i] = p.second[0];
+			rate[i] = p.first;
+			sum += p.first;
+			i = getNxt(i);
+		}
+		int j = i;
+		i = 0;
+		int init = 40;
+		int tmp = 0;
+		for (int k = 0; k < alp - 1; k++)
+		{
+			angleR[i] = init + ((rate[i] / sum) * 
+				           (360 - (45 * (6 - alp)) - (init * alp)));
+			tmp += angleR[i];
+			i = getNxt(i);
+		}
+		angleR[i] = 360 - (45 * (6 - alp)) - tmp;
+		i = getNxt(i);
+		for (auto e : rec.words)
+		{
+			pair<float, string> p;
+			cout << p.second << " : " << p.first << endl;
+			wheelR[i] = p.second[0];
+			angleR[i] = 45;
+			i = getNxt(i);
+		}
+		for (auto e : rec.alphas)
+		{
+			pair<float, string> p;
+			cout << p.second << " : " << p.first << endl;
+			wheelR[i] = p.second[0];
+			angleR[i] = 45;
+			i = getNxt(i);
+		}
+	}
+	else
+	{
+		i = 0;
+		for (auto e : rec.words)
+		{
+			pair<float, string> p;
+			cout << p.second << " : " << p.first << endl;
+			wheelR[i] = p.second[0];
+			angleR[i] = 60;
+			i = getNxt(i);
+		}
+		for (auto e : rec.alphas)
+		{
+			pair<float, string> p;
+			cout << p.second << " : " << p.first << endl;
+			wheelR[i] = p.second[0];
+			angleR[i] = 60;
+			i = getNxt(i);
+		}
+	}
+
+	/*
 	for (int i = 0; i < 6; i++)
 	{
 		pair<float, char> p;
@@ -76,6 +166,7 @@ void Typing::getVoc()
 		tmp += angleR[i];
 	}
 	angleR[5] = 360 - tmp;
+	*/
 }
 
 //todo : round
