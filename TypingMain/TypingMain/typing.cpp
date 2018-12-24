@@ -84,6 +84,18 @@ void Typing::getVoc()
 	int fir = rec.firstAlphas.size();
 
 	cout << alp << " " << wod << " " << fir << endl;
+	for (auto e : rec.alphas)
+	{
+		cout << e.first << " " << e.second << endl;
+	}
+	for (auto e : rec.words)
+	{
+		cout << e.first << " " << e.second << endl;
+	}
+	for (auto e : rec.firstAlphas)
+	{
+		cout << e.first << " " << e.second << endl;
+	}
 
 
 	if (alp > 0)
