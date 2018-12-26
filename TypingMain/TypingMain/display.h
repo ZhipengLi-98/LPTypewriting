@@ -13,7 +13,7 @@ using namespace std;
 
 #define PI 3.1415926
 
-void drawWheel(int index, char* characters, cv::Mat& picture, int* angles);
+void drawWheel(int index, string characters[], cv::Mat& picture, int* angles);
 
 void drawText(char* text, int len, cv::Mat& picture);
 
