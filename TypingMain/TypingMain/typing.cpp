@@ -57,7 +57,7 @@ void Typing::renewWheel()
 		drawWheel(center + 1, wheelR, picture, angleR);
 	}
 	// drawWheel(wheelL, testc, picture, test);
-	drawText((char*)text.data(), len, picture);
+	drawText((char*) (text + "|").data(), len + 1, picture);
 	//counterEmit++;
 	//imshow("drawWheel", picture);	
 	//waitKey(1);
@@ -212,11 +212,13 @@ void Typing::getLeft(double angle)
 	{
 		wheelR[i] = (char) (97 + ((center + i) % 26));
 		angleR[i] = 60;
+		isword[i] = 0;
 	}
 	for (int i = 4; i < 6; i++)
 	{
 		wheelR[i] = (char)(97 + ((center - (6 - i) + 26) % 26));
 		angleR[i] = 60;
+		isword[i] = 0;
 	}
 	/*
 	if (wheelL == 5)
@@ -297,11 +299,11 @@ void Typing::getDel()
 		}
 	}
 	inputChar = '.';
-	word = "";
-	//getVoc();
-	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
-	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
-	isword[0] = isword[1] = isword[2] = isword[3] = isword[4] = isword[5] = 0;
+	//word = "";
+	getVoc();
+	//wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
+	//angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
+	//isword[0] = isword[1] = isword[2] = isword[3] = isword[4] = isword[5] = 0;
 	wheelL = -1;
 	renewWheel();
 }
@@ -310,10 +312,15 @@ void Typing::getSps()
 {
 	cout << endl;
 	cout << "space" << endl;
-	char inputChar = '.';
+	
 	word = "";
-	text += " ";
-	len++;
+	if (inputChar != '@')
+	{
+		text += "_";
+		len++;
+	}
+	inputChar = '@';
+	//text += "_";
 	//getVoc();
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;
@@ -329,7 +336,7 @@ void Typing::getEnt()
 	word = "";
 	text = "";
 	len = 0;
-	char inputChar = '.';
+	inputChar = '.';
 	//getVoc();
 	wheelR[0] = wheelR[1] = wheelR[2] = wheelR[3] = wheelR[4] = wheelR[5] = ' ';
 	angleR[0] = angleR[1] = angleR[2] = angleR[3] = angleR[4] = angleR[5] = 60;

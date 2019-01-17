@@ -106,7 +106,7 @@ void drawWheel(int index, string characters[], cv::Mat& picture, int* angles) {
 		}
 		t += angleBuffer[i] / 2;
 		double tempAngle = (double)t / 360 * 2 * PI;
-		putText(picture, cv::String(temp[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1, Scalar::all(255));
+		putText(picture, cv::String(temp[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1.5, Scalar::all(255));
 	}
 
 	/*
@@ -144,7 +144,7 @@ void drawWheel(int index, string characters[], cv::Mat& picture, int* angles) {
 		}
 		t += angleBuffer[i] / 2;
 		double tempAngle = (double)t / 360 * 2 * PI;
-		putText(picture, cv::String(characters[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1, Scalar::all(0));
+		putText(picture, cv::String(characters[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1.5, Scalar::all(0));
 	}
 
 	/*

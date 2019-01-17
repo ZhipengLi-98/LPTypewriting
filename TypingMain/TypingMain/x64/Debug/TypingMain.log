@@ -1,4 +1,14 @@
-﻿  typing.cpp
+﻿  CallbackSample.cpp
+d:\virtualbox\lptypewriting\typingmain\typingmain\callbacksample.cpp(9): warning C4117: 保留“__cplusplus”宏名，忽略“#undef”
+d:\virtualbox\lptypewriting\typingmain\typingmain\voc.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\virtualbox\lptypewriting\typingmain\typingmain\callbacksample.cpp(26): warning C4244: “=”: 从“double”转换到“long”，可能丢失数据
+  motion.cpp
+d:\virtualbox\lptypewriting\typingmain\typingmain\voc.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\virtualbox\lptypewriting\typingmain\typingmain\motion.cpp(5): warning C4005: “PI”: 宏重定义
+  d:\virtualbox\lptypewriting\typingmain\typingmain\display.h(14): note: 参见“PI”的前一个定义
+d:\virtualbox\lptypewriting\typingmain\typingmain\motion.cpp(46): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+d:\virtualbox\lptypewriting\typingmain\typingmain\motion.cpp(48): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  typing.cpp
 d:\virtualbox\lptypewriting\typingmain\typingmain\voc.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(95): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(96): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
@@ -6,5 +16,6 @@ d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(97): warning C4267:
 d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(134): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(207): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(208): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(280): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+d:\virtualbox\lptypewriting\typingmain\typingmain\typing.cpp(282): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  正在生成代码...
   TypingMain.vcxproj -> D:\Virtualbox\LPTypewriting\TypingMain\x64\Debug\TypingMain.exe

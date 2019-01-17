@@ -162,9 +162,9 @@ void Motion::checkMovement()//检测手是否移出阈值，是则调用触发动作函数
 	Vector rightOld = right[(currentFrame - 1) % TOTALFRAME];
 	if (isPalmFlipped == 0) {//normal gestures detection
 		if (leftOld.plainDistanceSquare(centerLeft) < RADIUS*RADIUS && leftNew.plainDistanceSquare(centerLeft) > RADIUS*RADIUS && centerLeft.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+			printf("leftpinch: %d\n", leftPinchHold);
 			if (leftPinchHold == 1) {
-				resetCounter();
-				pointerTyping->getDel();
+				
 				//printf("left delete\n");
 			}
 			else
@@ -179,10 +179,10 @@ void Motion::checkMovement()//检测手是否移出阈值，是则调用触发动作函数
 				printf("left movement: angle = %f\n", baseCoor.angle(v));
 			}
 		}
-		if (rightOld.plainDistanceSquare(centerRight) < RADIUS*RADIUS && rightNew.plainDistanceSquare(centerRight) > RADIUS*RADIUS && centerRight.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+		else if (rightOld.plainDistanceSquare(centerRight) < RADIUS*RADIUS && rightNew.plainDistanceSquare(centerRight) > RADIUS*RADIUS && centerRight.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+			printf("rightpinch: %d\n", rightPinchHold);
 			if (rightPinchHold == 1) {
-				resetCounter();
-				pointerTyping->getDel();
+				
 				//printf("right delete\n");
 			}
 			else {
@@ -196,12 +196,12 @@ void Motion::checkMovement()//检测手是否移出阈值，是则调用触发动作函数
 				printf("right movement: angle = %f\n", baseCoor.angle(v));
 			}
 		}
-		if (leftOld.verticalDistance(centerLeft) > (-1)*RADIUS_Z && leftNew.verticalDistance(centerLeft) < (-1)*RADIUS_Z && centerLeft.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+		else if (leftOld.verticalDistance(centerLeft) > (-1)*RADIUS_SPACE && leftNew.verticalDistance(centerLeft) < (-1)*RADIUS_SPACE && centerLeft.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
 			resetCounter();
 			pointerTyping->getSps();
 			//printf("left space\n");
 		}
-		if (rightOld.verticalDistance(centerRight) > (-1)*RADIUS_Z && rightNew.verticalDistance(centerRight) < (-1)*RADIUS_Z && centerRight.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+		else if (rightOld.verticalDistance(centerRight) > (-1)*RADIUS_SPACE && rightNew.verticalDistance(centerRight) < (-1)*RADIUS_SPACE && centerRight.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
 			resetCounter();
 			pointerTyping->getSps();
 			//printf("right space\n");
@@ -226,12 +226,43 @@ void Motion::checkMovement()//检测手是否移出阈值，是则调用触发动作函数
 		}
 	}
 }
-
+/*
 void Motion::checkPinch(Vector leftPinch, Vector rightPinch)
 {
-	leftPinchHold = (abs(leftPinch.x - 1.0f) < 0.05f && leftPinch.y < 20.0f) ? 1 : 0;
-	rightPinchHold = (abs(rightPinch.x - 1.0f) < 0.05f && rightPinch.y < 20.0f) ? 1 : 0;
-	//printf("leftPinch: %d, rightPinch: %d\n", leftPinchHold, rightPinchHold);
+	leftPinchHold = (abs(leftPinch.x - 1.0f) < 0.1f && leftPinch.y < 20.0f) ? 1 : 0;
+	rightPinchHold = (abs(rightPinch.x - 1.0f) < 0.1f && rightPinch.y < 20.0f) ? 1 : 0;
+	if(leftPinchHold == 1 || rightPinchHold == 1) 
+		printf("leftPinch: %d, rightPinch: %d\n", leftPinchHold, rightPinchHold);
+}
+*/
+void Motion::checkPinch(Vector leftPinch, Vector rightPinch)//x = strength(0-1) y = angle(0 - pi)
+{
+	if ((abs(leftPinch.x - 1.0f) < 0.01f && leftPinch.y > 3.0f)) {
+		if (isLeftHold == 0) {
+			isLeftHold = 1;
+			leftPinchHold = 1;//duplicate but can still use now
+			//resetCounter();
+			pointerTyping->getDel();
+		}
+	}
+	else {
+		isLeftHold = 0;
+		leftPinchHold = 0;
+	}
+	if ((abs(rightPinch.x - 1.0f) < 0.01f && rightPinch.y > 3.0f)) {
+		if (isRightHold == 0) {
+			isRightHold = 1;
+			rightPinchHold = 1;
+			//resetCounter();
+			pointerTyping->getDel();
+		}
+	}
+	else
+	{
+		isRightHold = 0;
+		rightPinchHold = 0;
+	}
+	//printf("left: %d, right: %d\n", leftPinchHold, rightPinchHold);
 }
 
 void Motion::checkPalmDirection(Vector leftPalmDirection, Vector rightPalmDirection, Vector left, Vector right)
@@ -258,8 +289,8 @@ void Motion::checkPalmDirection(Vector leftPalmDirection, Vector rightPalmDirect
 			isPalmFlipped = 0;
 			isLeftEnter = 0;
 			isRightEnter = 0;
-			centerLeft = left;
-			centerRight = right;
+			//centerLeft = left;
+			//centerRight = right;
 			printf("centerleft: ");
 			centerLeft.print();
 			printf("centerright: ");
