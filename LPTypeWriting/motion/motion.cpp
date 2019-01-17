@@ -33,6 +33,11 @@ float Vector::plainDistanceSquare(Vector v)
 	return (x - v.x)*(x - v.x) + (z - v.z)*(z - v.z);
 }
 
+float Vector::verticalDistance(Vector v)
+{
+	return y - v.y;
+}
+
 float Vector::angle(Vector v)
 {
 	if(v.x > 0)
@@ -76,20 +81,31 @@ Motion::Motion()
 	baseCoor.x = 0.0f;
 	baseCoor.y = 0.0f;
 	baseCoor.z = -1.0f;
+	leftPinchHold = 0;
+	rightPinchHold = 0;
+	isPalmFlipped = 0;
+	flippedCenterLeft = Vector(0, 0, 0);
+	flippedCenterRight = Vector(0, 0, 0);
+	isLeftEnter = 0;
+	isRightEnter = 0;
+	counter = 0;
 }
 
 Motion::~Motion()
 {
 }
 
-void Motion::insertNewFrame(float lx, float ly, float lz, float rx, float ry, float rz)
+void Motion::insertNewFrame(float lx, float ly, float lz, float rx, float ry, float rz, Vector leftPinch, Vector rightPinch, Vector leftPalmDirection, Vector rightPalmDirection)
 {
 	currentFrame++;
 	currentFrame %= TOTALFRAME;//keep in array limit
 	left[currentFrame] = Vector(lx, ly, lz);
 	right[currentFrame] = Vector(rx, ry, rz);
 	freshCount++;
-	checkMovement();
+	checkPalmDirection(leftPalmDirection, rightPalmDirection, left[currentFrame], right[currentFrame]);
+	checkPinch(leftPinch, rightPinch);
+	if (counter < TIME_INTERVAL) counter++;
+	else checkMovement();
 	if (freshCount == COUNTLIMIT) {
 		freshCount = 0;
 		checkNewCenter();
@@ -128,28 +144,139 @@ void Motion::checkNewCenter()//如果连续CENTERLIMIT个点都在阈值内，那么就更新手掌
 	//centerRight.print();
 }
 
-void Motion::checkMovement()
+void Motion::checkMovement()//检测手是否移出阈值，是则调用触发动作函数
 {
 	Vector leftNew = left[currentFrame];
 	Vector rightNew = right[currentFrame];
 	Vector leftOld = left[(currentFrame - 1) % TOTALFRAME];
 	Vector rightOld = right[(currentFrame - 1) % TOTALFRAME];
-	if (leftOld.plainDistanceSquare(centerLeft) < RADIUS*RADIUS && leftNew.plainDistanceSquare(centerLeft) > RADIUS*RADIUS && centerLeft.distanceSquare(Vector(0,0,0)) > 1e-6) {
-		Vector v;
-		v.x = leftNew.x - centerLeft.x;
-		v.y = 0;
-		v.z = leftNew.z - centerLeft.z;
-		v.normalize();
-		printf("left movement: angle = %f\n", baseCoor.angle(v));
+	if (isPalmFlipped == 0) {//normal gestures detection
+		if (leftOld.plainDistanceSquare(centerLeft) < RADIUS*RADIUS && leftNew.plainDistanceSquare(centerLeft) > RADIUS*RADIUS && centerLeft.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+			if (leftPinchHold == 1) {
+				resetCounter();
+				printf("left delete\n");
+			}
+			else
+			{
+				Vector v;
+				v.x = leftNew.x - centerLeft.x;
+				v.y = 0;
+				v.z = leftNew.z - centerLeft.z;
+				v.normalize();
+				resetCounter();
+				printf("left movement: angle = %f\n", baseCoor.angle(v));
+			}
+		}
+		else if (rightOld.plainDistanceSquare(centerRight) < RADIUS*RADIUS && rightNew.plainDistanceSquare(centerRight) > RADIUS*RADIUS && centerRight.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+			if (rightPinchHold == 1) {
+				resetCounter();
+				printf("right delete\n");
+			}
+			else {
+				Vector v;
+				v.x = rightNew.x - centerRight.x;
+				v.y = 0;
+				v.z = rightNew.z - centerRight.z;
+				v.normalize();
+				resetCounter();
+				printf("right movement: angle = %f\n", baseCoor.angle(v));
+			}
+		}
+		else if (leftOld.verticalDistance(centerLeft) > (-1)*RADIUS_SPACE && leftNew.verticalDistance(centerLeft) < (-1)*RADIUS_SPACE && centerLeft.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+			resetCounter();
+			printf("left space\n");
+		}
+		else if (rightOld.verticalDistance(centerRight) > (-1)*RADIUS_SPACE && rightNew.verticalDistance(centerRight) < (-1)*RADIUS_SPACE && centerRight.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+			resetCounter();
+			printf("right space\n");
+		}
 	}
-	if (rightOld.plainDistanceSquare(centerRight) < RADIUS*RADIUS && rightNew.plainDistanceSquare(centerRight) > RADIUS*RADIUS && centerRight.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
-		Vector v;
-		v.x = rightNew.x - centerRight.x;
-		v.y = 0;
-		v.z = rightNew.z - centerRight.z;
-		v.normalize();
-		printf("right movement: angle = %f\n", baseCoor.angle(v));
+	else {//fliped gestures detection: ENTER
+		if (leftOld.verticalDistance(flippedCenterLeft) < RADIUS_Z && leftNew.verticalDistance(flippedCenterLeft) > RADIUS_Z && flippedCenterLeft.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+			printf("left enter: ");
+			leftNew.print();
+			isLeftEnter = 1;
+		}
+		if (rightOld.verticalDistance(flippedCenterRight) < RADIUS_Z && rightNew.verticalDistance(flippedCenterRight) > RADIUS_Z && flippedCenterRight.distanceSquare(Vector(0, 0, 0)) > 1e-6) {
+			printf("right enter: ");
+			rightNew.print();
+			isRightEnter = 1;
+		}
+		if (isLeftEnter == 1 && isRightEnter == 1) {
+			resetCounter();
+			printf("both enter\n");
+			isLeftEnter = 0;
+			isRightEnter = 0;
+		}
 	}
+}
+
+void Motion::checkPinch(Vector leftPinch, Vector rightPinch)//x = strength(0-1) y = angle(0 - pi)
+{
+	if ((abs(leftPinch.x - 1.0f) < 0.01f && leftPinch.y > 3.0f)) {
+		if (isLeftHold == 0) {
+			isLeftHold = 1;
+			leftPinchHold = 1 - leftPinchHold;
+		}
+	}
+	else {
+		isLeftHold = 0;
+	}
+	if ((abs(rightPinch.x - 1.0f) < 0.01f && rightPinch.y > 3.0f)) {
+		if (isRightHold == 0) {
+			isRightHold = 1;
+			rightPinchHold = 1 - rightPinchHold;
+		}
+	}
+	else
+	{
+		isRightHold = 0;
+	}
+	//printf("left: %d, right: %d\n", leftPinchHold, rightPinchHold);
+}
+
+void Motion::checkPalmDirection(Vector leftPalmDirection, Vector rightPalmDirection, Vector left, Vector right)
+{	
+	if (abs(leftPalmDirection.y - 1.0f) < 0.1f && abs(rightPalmDirection.y - 1.0f) < 0.1f) {
+		if (isPalmFlipped == 0) {
+			isPalmFlipped = 1;
+			printf("flipped\n");
+			//record fliped coordinate
+			flippedCenterLeft = left;
+			flippedCenterRight = right;
+			isLeftEnter = 0;
+			isRightEnter = 0;
+			printf("flippedcenterleft: ");
+			flippedCenterLeft.print();
+			printf("flippedcenterright: ");
+			flippedCenterRight.print();
+		}
+	}
+	else if(abs(leftPalmDirection.y + 1.0f) < 0.1f && abs(rightPalmDirection.y + 1.0f) < 0.1f){
+		if (isPalmFlipped == 1) {
+			resetFlipedCounter();
+			printf("flipped back\n");
+			isPalmFlipped = 0;
+			isLeftEnter = 0;
+			isRightEnter = 0;
+			centerLeft = left;
+			centerRight = right;
+			printf("centerleft: ");
+			centerLeft.print();
+			printf("centerright: ");
+			centerRight.print();
+		}
+	}
+}
+
+void Motion::resetCounter()
+{
+	counter = 0;
+}
+
+void Motion::resetFlipedCounter()
+{
+	counter = TIME_INTERVAL-100;
 }
 
 
