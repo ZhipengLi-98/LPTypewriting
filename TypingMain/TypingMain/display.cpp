@@ -1,11 +1,11 @@
 #include "display.h"
 
 char alphabet[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-char temp[6];
+std::string temp[6];
 int angleBuffer[6];
 std::vector<char> charBuffer;
 
-void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
+void drawWheel(int index, string characters[], cv::Mat& picture, int* angles) {
 	int flag = 1;
 	if (index == -1)
 	{
@@ -78,8 +78,9 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 	Point center2 = Point(750, 400);
 	circle(picture, center2, r1, Scalar(20, 20, 20), 3);
 	int r4 = 150;
-	circle(picture, center2, r2, Scalar(20, 20, 20), 3);
-	int r_coverage2 = ((r1 + r2) >> 1) - 10;
+	// circle(picture, center2, r2, Scalar(20, 20, 20), 3);
+	// int r_coverage2 = ((r1 + r2) >> 1) - 10;
+	int r_coverage2 = r2;
 
 	for (int i = 0; i < 6; i++) {
 		int t = 0;
@@ -89,13 +90,14 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 		double c_angle = (double)t / 360 * 2 * PI;
 		Point start = Point(center2.x + r1 * sin(c_angle), center2.y - r1 * cos(c_angle));
 		Point end = Point(center2.x + r2 * sin(c_angle), center2.y - r2 * cos(c_angle));
-		line(picture, start, end, Scalar::all(255), 2, LINE_8);
+		// line(picture, start, end, Scalar::all(255), 2, LINE_8);
+		line(picture, start, center2, Scalar::all(255), 2, LINE_8);
 	}
 	circle(picture, center2, r1, Scalar(20, 20, 20), 3);
-	circle(picture, center2, r2, Scalar(20, 20, 20), 3);
+	// circle(picture, center2, r2, Scalar(20, 20, 20), 3);
 
-	cv::String string = ((const char*)characters);
-	cv::String(sizeof(char), characters[0]);
+	// cv::String string = ((const char*)characters);
+	// cv::String(characters);
 
 	for (int i = 0; i < 6; i++) {
 		int t = 0;
@@ -104,7 +106,7 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 		}
 		t += angleBuffer[i] / 2;
 		double tempAngle = (double)t / 360 * 2 * PI;
-		putText(picture, cv::String(sizeof(char), temp[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1, Scalar::all(255));
+		putText(picture, cv::String(temp[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1, Scalar::all(255));
 	}
 
 	/*
@@ -127,7 +129,8 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 		//std::cout << c_angle << std::endl;
 		Point start = Point(center2.x + r1 * sin(c_angle), center2.y - r1 * cos(c_angle));
 		Point end = Point(center2.x + r2 * sin(c_angle), center2.y - r2 * cos(c_angle));
-		line(picture, start, end, Scalar::all(0), 2, LINE_8);
+		// line(picture, start, end, Scalar::all(0), 2, LINE_8);
+		line(picture, start, center2, Scalar::all(0), 2, LINE_8);
 	}
 
 	// Size axes = Size(r2, r2);
@@ -141,7 +144,7 @@ void drawWheel(int index, char* characters, cv::Mat& picture, int* angles) {
 		}
 		t += angleBuffer[i] / 2;
 		double tempAngle = (double)t / 360 * 2 * PI;
-		putText(picture, cv::String(sizeof(char), characters[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1, Scalar::all(0));
+		putText(picture, cv::String(characters[i]), Point(center2.x - 10 + r_coverage2 * sin(tempAngle), center2.y - r_coverage2 * cos(tempAngle)), 1.5, 1, Scalar::all(0));
 	}
 
 	/*
@@ -165,11 +168,11 @@ void drawText(char* text, int len, cv::Mat& picture) {
 	int width = 0;
 	for (int i = 0; i < charBuffer.size(); i++) {
 		width++;
-		if (i > 19) {
-			width -= 20;
+		if (width > 29) {
+			width -= 30;
 			rows++;
 		}
-		putText(picture, cv::String(sizeof(char), charBuffer[i]), Point(400 + width * 10, 100 + rows * 10), 1.5, 1, Scalar::all(255));
+		putText(picture, cv::String(sizeof(char), charBuffer[i]), Point(200 + width * 20, 50 + rows * 20), 1.5, 2, Scalar::all(255));
 	}
 	
 	rows = 0;
@@ -178,11 +181,11 @@ void drawText(char* text, int len, cv::Mat& picture) {
 	for (int i = 0; i < len; i++) {
 		width++;
 		charBuffer.push_back(text[i]);
-		if (i > 19) {
-			width -= 20;
+		if (width > 29) {
+			width -= 30;
 			rows++;
 		}
-		putText(picture, cv::String(sizeof(char), text[i]), Point(400 + width * 10, 100 + rows * 10), 1.5, 1, Scalar::all(0));
+		putText(picture, cv::String(sizeof(char), text[i]), Point(200 + width * 20, 50 + rows * 20), 1.5, 2, Scalar::all(0));
 	}
 }
 

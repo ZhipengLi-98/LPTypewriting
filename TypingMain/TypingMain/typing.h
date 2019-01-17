@@ -22,11 +22,12 @@ public:
 	Motion motion;
 	Voc voc;
 
-	char wheelR[6];
+	string wheelR[6];
 	int wheelL;
 	int center;
 	double rate[6];
 	int angleR[6];
+	int isword[6];
 	string text;
 	string word;
 	int len;
@@ -39,6 +40,8 @@ public:
 
 	double angleLeft;
 	double angleRight;
+
+	int getNxt(int);
 
 	void initshow();
 	void runshow();
