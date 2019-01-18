@@ -28,6 +28,8 @@ long timediff(clock_t t1, clock_t t2) {
 }
 clock_t t1 = 0;
 
+clock_t last_t1 = 0;
+
 /** count timediff example
 int main(void) {
 	clock_t t1, t2;
@@ -64,49 +66,53 @@ static void OnFrame(const LEAP_TRACKING_EVENT *frame){//10ms per frame
   //printf("Frame %lli with %i hands.\n", (long long int)frame->info.frame_id, frame->nHands);
   //printf("elapsed: %ld ms\n", timediff(t1, clock()));
   t1 = clock();
+  //printf("time duration: %d\n", t1 - last_t1);
+  last_t1 = t1;
   Vector left(0, 0, 0);
   Vector right(0, 0, 0);
-  Vector leftPinch(0, 100, 0);//x = strength(0-1) y = distance(0-100)
+  Vector leftPinch(0, 100, 0);//x = strength(0-1) y = distance(0-3.14159=Pi)
   Vector rightPinch(0, 100, 0);
   Vector leftPalmDirection;
   Vector rightPalmDirection;
   for(uint32_t h = 0; h < frame->nHands; h++){
     LEAP_HAND* hand = &frame->pHands[h];
-	/*
+  /*
     printf("    Hand id %i is a %s hand with position (%f, %f, %f).\n",
                 hand->id,
                 (hand->type == eLeapHandType_Left ? "left" : "right"),
                 hand->palm.position.x,
                 hand->palm.position.y,
                 hand->palm.position.z);
-	*/
-	if (hand->type == eLeapHandType_Left) {
-		//printf("left: strength: %f distance: %f\n", hand->pinch_strength, hand->pinch_distance);
-		//printf("left palm direction: %f %f %f\n", hand->palm.normal.x, hand->palm.normal.y, hand->palm.normal.z);
-		left.x = hand->palm.position.x;
-		left.y = hand->palm.position.y;
-		left.z = hand->palm.position.z;
-		leftPinch.x = hand->pinch_strength;
-		leftPinch.y = hand->pinch_distance;
-		leftPalmDirection.x = hand->palm.normal.x;
-		leftPalmDirection.y = hand->palm.normal.y;
-		leftPalmDirection.z = hand->palm.normal.z;
-	}
-	else {
-		//printf("right: strength: %f distance: %f\n", hand->pinch_strength, hand->pinch_distance);
-		//printf("right palm direction: %f %f %f\n", hand->palm.normal.x, hand->palm.normal.y, hand->palm.normal.z);
-		right.x = hand->palm.position.x;
-		right.y = hand->palm.position.y;
-		right.z = hand->palm.position.z;
-		rightPinch.x = hand->pinch_strength;
-		rightPinch.y = hand->pinch_distance;
-		rightPalmDirection.x = hand->palm.normal.x;
-		rightPalmDirection.y = hand->palm.normal.y;
-		rightPalmDirection.z = hand->palm.normal.z;
-	}
+  */
+  if (hand->type == eLeapHandType_Left) {
+    //printf("left: strength: %f angle: %f\n", hand->grab_strength, hand->grab_angle);
+    //printf("left palm direction: %f %f %f\n", hand->palm.normal.x, hand->palm.normal.y, hand->palm.normal.z);
+    left.x = hand->palm.position.x;
+    left.y = hand->palm.position.y;
+    left.z = hand->palm.position.z;
+    leftPinch.x = hand->grab_strength;
+    leftPinch.y = hand->grab_angle;
+    leftPalmDirection.x = hand->palm.normal.x;
+    leftPalmDirection.y = hand->palm.normal.y;
+    leftPalmDirection.z = hand->palm.normal.z;
   }
+  else {
+    //printf("right: strength: %f distance: %f\n", hand->pinch_strength, hand->pinch_distance);
+    //printf("right palm direction: %f %f %f\n", hand->palm.normal.x, hand->palm.normal.y, hand->palm.normal.z);
+    right.x = hand->palm.position.x;
+    right.y = hand->palm.position.y;
+    right.z = hand->palm.position.z;
+    rightPinch.x = hand->grab_strength;
+    rightPinch.y = hand->grab_angle;
+    rightPalmDirection.x = hand->palm.normal.x;
+    rightPalmDirection.y = hand->palm.normal.y;
+    rightPalmDirection.z = hand->palm.normal.z;
+  }
+  }
+  //printf("left.z: %f, right.z: %f\n", left.z, right.z);
   typing.motion.insertNewFrame(left.x, left.y, left.z, right.x, right.y, right.z, leftPinch, rightPinch, leftPalmDirection, rightPalmDirection);
 }
+
 
 static void OnImage(const LEAP_IMAGE_EVENT *image){
 	/*
